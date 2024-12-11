@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #555;
+        }
+
+        .stopwatch {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #4CAF50;
+            /* Green color for the timer */
+            border: 3px solid #4CAF50;
+            padding: 20px;
+            display: inline-block;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            font-size: 1.2rem;
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #007BFF;
+            /* Default blue */
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            /* Darker blue on hover */
+        }
+
+        #start {
+            background-color: #28a745;
+            /* Green for Start */
+        }
+
+        #start:hover {
+            background-color: #218838;
+        }
+
+        #stop {
+            background-color: #dc3545;
+            /* Red for Stop */
+        }
+
+        #stop:hover {
+            background-color: #c82333;
+        }
+
+        #reset {
+            background-color: #ffc107;
+            /* Yellow for Reset */
+            color: #333;
+            /* Dark text for contrast */
+        }
+
+        #reset:hover {
+            background-color: #e0a800;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Stopwatch</h1>
+        <p><span id="seconds">00</span>:<span id="milliseconds">00</span></p>
+        <button id="button-start">Start</button>
+        <button id="button-stop">Stop</button>
+        <button id="button-reset">Reset</button>
+    </div>
+    <script>
+        window.onload = function () {
+            var seconds = 0;
+            var milliseconds = 0;
+            var appendmilliseconds = document.getElementById("milliseconds");
+            var appendSeconds = document.getElementById("seconds");
+            var buttonStart = document.getElementById('button-start');
+            var buttonStop = document.getElementById('button-stop');
+            var buttonReset = document.getElementById('button-reset');
+            var Interval;
+
+            buttonStart.onclick = function () {
+
+                clearInterval(Interval);
+                Interval = setInterval(startTimer, 10);
+            }
+
+            buttonStop.onclick = function () {
+                clearInterval(Interval);
+            }
+
+            buttonReset.onclick = function () {
+                clearInterval(Interval);
+                milliseconds = "00";
+                seconds = "00";
+                appendmilliseconds.innerHTML = milliseconds;
+                appendSeconds.innerHTML = seconds;
+            }
+
+            function startTimer() {
+                milliseconds++;
+
+                if (milliseconds <= 9) {
+                    appendmilliseconds.innerHTML = "0" + milliseconds;
+                }
+                if (milliseconds > 9) {
+                    appendmilliseconds.innerHTML = milliseconds;
+                }
+                if (milliseconds > 99) {
+                    seconds++;
+                    appendSeconds.innerHTML = "0" + seconds;
+                    milliseconds = 0;
+                    appendmilliseconds.innerHTML = "0" + 0;
+                }
+                if (seconds > 9) {
+                    appendSeconds.innerHTML = seconds;
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
